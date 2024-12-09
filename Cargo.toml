@@ -1,0 +1,26 @@
+[package]
+name = "quest-mod-rust-cordl"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+quest_hook = { git = "https://github.com/Fernthedev/quest-hook-rs.git", features = ["il2cpp_v31"], branch = "cordl-fixes"}
+# quest_hook = { path = "../quest-hook-rs", features = ["il2cpp_v31"]}
+tracing = "*"
+bs_cordl = { path = "./codegen-rs", features = [
+"UnityEngine+GameObject",
+"UnityEngine+Color",
+"MainMenuViewController",
+"TMPro+TextMeshPro", 
+"System+String", 
+"System+Object"
+]}
+
+[workspace]
+
+members = [
+    # "bs_cordl",
+]
