@@ -14,9 +14,7 @@ bs_cordl = { path = "./codegen-rs", features = [
 "UnityEngine+GameObject",
 "UnityEngine+Color",
 "MainMenuViewController",
-"TMPro+TextMeshPro", 
-"System+String", 
-"System+Object"
+"TMPro+TextMeshPro"
 ]}
 
 [workspace]
