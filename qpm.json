@@ -1,0 +1,28 @@
+{
+  "version": "0.4.0",
+  "sharedDir": "shared",
+  "dependenciesDir": "extern",
+  "info": {
+    "name": "Pink Cute Rust",
+    "id": "pink_cute_rust",
+    "version": "0.1.0",
+    "url": null,
+    "additionalData": {
+      "overrideSoName": "libpink_cute_rust.so",
+      "cmake": false
+    }
+  },
+  "workspace": {
+    "scripts": {
+      "build": [
+        "cargo ndk -t arm64-v8a -o ./build build --release"
+      ]
+    },
+    "qmodIncludeDirs": [
+      "build/arm64-v8a"
+    ],
+    "qmodIncludeFiles": [],
+    "qmodOutput": "pink_cute_rust.qmod"
+  },
+  "dependencies": []
+}

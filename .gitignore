@@ -1,0 +1,7 @@
+/target
+./bs_cordl/src/
+bs_cordl
+build/
+codegen-rs
+*.7z
+*.qmod

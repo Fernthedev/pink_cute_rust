@@ -46,15 +46,16 @@ checksum = "b048fb63fd8b5923fc5aa7b340d8e156aec7ec02f0c78fa8a6ddc2613f6f71de"
 [[package]]
 name = "bs_cordl"
 version = "0.1.0"
+source = "git+https://github.com/QuestPackageManager/bs-cordl-rust.git#fc27e3d842004e101762014e65ad71f5e01877fb"
 dependencies = [
  "quest_hook",
 ]
 
 [[package]]
 name = "cc"
-version = "1.2.3"
+version = "1.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27f657647bcff5394bf56c7317665bbf790a137a50eaaa5c6bfbb9e27a518f2d"
+checksum = "c31a0499c1dc64f458ad13872de75c0eb7e3fdb0e67964610c914b034fc5956e"
 dependencies = [
  "shlex",
 ]
@@ -116,7 +117,7 @@ checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 [[package]]
 name = "inline_hook"
 version = "0.1.0"
-source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#d059d1ee0913fde0debd8ffb3d2be5915a79b511"
+source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#7ef98df6124d0bea4f3f7e71eb8d8ff3a509c839"
 dependencies = [
  "cc",
  "cfg-if",
@@ -146,14 +147,14 @@ checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
 
 [[package]]
 name = "libc"
-version = "0.2.168"
+version = "0.2.169"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5aaeb2981e0606ca11d79718f8bb01164f1d6ed75080182d3abf017e6d244b6d"
+checksum = "b5aba8db14291edd000dfcc4d620c7ebfb122c613afb886ca8803fa4e128a20a"
 
 [[package]]
 name = "libil2cpp"
 version = "0.1.0"
-source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#d059d1ee0913fde0debd8ffb3d2be5915a79b511"
+source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#7ef98df6124d0bea4f3f7e71eb8d8ff3a509c839"
 dependencies = [
  "bindgen",
  "libloading",
@@ -280,6 +281,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "915a1e146535de9163f3987b8944ed8cf49a18bb0056bcebcdcece385cece4ff"
 
 [[package]]
+name = "pink_cute_rust"
+version = "0.1.0"
+dependencies = [
+ "bs_cordl",
+ "quest_hook",
+ "tracing",
+]
+
+[[package]]
 name = "prettyplease"
 version = "0.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -299,18 +309,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "quest-mod-rust-cordl"
-version = "0.1.0"
-dependencies = [
- "bs_cordl",
- "quest_hook",
- "tracing",
-]
-
-[[package]]
 name = "quest_hook"
 version = "0.1.0"
-source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#d059d1ee0913fde0debd8ffb3d2be5915a79b511"
+source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#7ef98df6124d0bea4f3f7e71eb8d8ff3a509c839"
 dependencies = [
  "cfg-if",
  "inline_hook",
@@ -326,7 +327,7 @@ dependencies = [
 [[package]]
 name = "quest_hook_proc_macros"
 version = "0.1.0"
-source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#d059d1ee0913fde0debd8ffb3d2be5915a79b511"
+source = "git+https://github.com/Fernthedev/quest-hook-rs.git?branch=cordl-fixes#7ef98df6124d0bea4f3f7e71eb8d8ff3a509c839"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -336,9 +337,9 @@ dependencies = [
 
 [[package]]
 name = "quote"
-version = "1.0.37"
+version = "1.0.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
+checksum = "0e4dccaaaf89514f546c693ddc140f729f958c247918a13380cccc6078391acc"
 dependencies = [
  "proc-macro2",
 ]
@@ -450,9 +451,9 @@ checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
 
 [[package]]
 name = "syn"
-version = "2.0.90"
+version = "2.0.92"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "919d3b74a5dd0ccd15aeb8f93e7006bd9e14c295087c9896a110f490752bcf31"
+checksum = "70ae51629bf965c5c098cc9e87908a3df5301051a9e087d6f9bef5c9771ed126"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -461,18 +462,18 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.6"
+version = "2.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8fec2a1820ebd077e2b90c4df007bebf344cd394098a13c563957d0afc83ea47"
+checksum = "f072643fd0190df67a8bab670c20ef5d8737177d6ac6b2e9a236cb096206b2cc"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "2.0.6"
+version = "2.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d65750cab40f4ff1929fb1ba509e9914eb756131cef4210da8d5d700d26f6312"
+checksum = "7b50fa271071aae2e6ee85f842e2e28ba8cd2c5fb67f11fcb1fd70b276f9e7d4"
 dependencies = [
  "proc-macro2",
  "quote",

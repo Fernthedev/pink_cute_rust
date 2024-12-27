@@ -1,6 +1,7 @@
 #![feature(box_patterns, extend_one)]
 #![feature(generic_arg_infer)]
 
+use bs_cordl::GlobalNamespace::{BeatmapData, IReadonlyBeatmapData, NoteData};
 use bs_cordl::TMPro::TextMeshPro;
 use bs_cordl::UnityEngine::{self};
 use quest_hook::hook;
@@ -11,7 +12,7 @@ fn TextMeshPro_Awake(this: &mut TextMeshPro) {
     TextMeshPro_Awake.original(this);
 
     let text = "Pink cute";
-    this.set_text(Il2CppString::new(text).into()).unwrap();
+    this.set_text(Il2CppString::new(text)).unwrap();
 }
 #[hook("TMPro", "TextMeshPro", "set_text")]
 fn TextMeshPro_set_text(this: &mut TextMeshPro, mut text: Gc<Il2CppString>) {
@@ -43,4 +44,11 @@ pub extern "C" fn late_load() {
     go
         .set_active(true)
         .unwrap();
+
+    let beatmap = BeatmapData::New(4).unwrap();
+
+    let mut interface_beatmap: Gc<IReadonlyBeatmapData> = beatmap.cast();
+
+    println!("Beatmap notes: {:?}", interface_beatmap.GetBeatmapDataItems::<Gc<NoteData>>(0).unwrap());
+    println!("Beatmap notes count: {:?}", interface_beatmap.get_cuttableNotesCount());
 }
