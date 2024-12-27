@@ -1,6 +1,8 @@
 #![feature(box_patterns, extend_one)]
 #![feature(generic_arg_infer)]
 
+use std::ffi::{c_char, CString};
+
 use bs_cordl::GlobalNamespace::{BeatmapData, IReadonlyBeatmapData, NoteData};
 use bs_cordl::TMPro::TextMeshPro;
 use bs_cordl::UnityEngine::{self};
@@ -21,13 +23,29 @@ fn TextMeshPro_set_text(this: &mut TextMeshPro, mut text: Gc<Il2CppString>) {
     TextMeshPro_set_text.original(this, text);
 }
 
+#[repr(C)]
+pub struct ModInfo {
+    id: *const c_char,
+    version: *const c_char,
+    version_long: u64,
+}
+
 #[no_mangle]
-pub extern "C" fn setup() {
+extern "C" fn setup(modinfo: *mut ModInfo) {
+    unsafe {
+        *modinfo = ModInfo {
+            // we have to let the string leak, because the CString is dropped at the end of the function
+            id: CString::new("RustMod").unwrap().into_raw() as *const c_char,
+            version: CString::new("1.0.0").unwrap().into_raw() as *const c_char,
+            version_long: 0,
+        }
+    }
+
     quest_hook::setup("PinkCute");
 }
 
 #[no_mangle]
-pub extern "C" fn late_load() {
+extern "C" fn late_load() {
     TextMeshPro_Awake.install().unwrap();
     TextMeshPro_set_text.install().unwrap();
 
@@ -38,17 +56,22 @@ pub extern "C" fn late_load() {
         a: 1.0,
     };
 
-    let mut go = bs_cordl::UnityEngine::GameObject::New_1()
-        .unwrap();
+    let mut go = bs_cordl::UnityEngine::GameObject::New_1().unwrap();
 
-    go
-        .set_active(true)
-        .unwrap();
+    go.set_active(true).unwrap();
 
     let beatmap = BeatmapData::New(4).unwrap();
 
     let mut interface_beatmap: Gc<IReadonlyBeatmapData> = beatmap.cast();
 
-    println!("Beatmap notes: {:?}", interface_beatmap.GetBeatmapDataItems::<Gc<NoteData>>(0).unwrap());
-    println!("Beatmap notes count: {:?}", interface_beatmap.get_cuttableNotesCount());
+    println!(
+        "Beatmap notes: {:?}",
+        interface_beatmap
+            .GetBeatmapDataItems::<Gc<NoteData>>(0)
+            .unwrap()
+    );
+    println!(
+        "Beatmap notes count: {:?}",
+        interface_beatmap.get_cuttableNotesCount()
+    );
 }
