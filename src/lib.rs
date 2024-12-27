@@ -35,8 +35,8 @@ extern "C" fn setup(modinfo: *mut ModInfo) {
     unsafe {
         *modinfo = ModInfo {
             // we have to let the string leak, because the CString is dropped at the end of the function
-            id: CString::new("RustMod").unwrap().into_raw() as *const c_char,
-            version: CString::new("1.0.0").unwrap().into_raw() as *const c_char,
+            id: CString::new("RustMod").unwrap().into_raw(),
+            version: CString::new("1.0.0").unwrap().into_raw(),
             version_long: 0,
         }
     }
