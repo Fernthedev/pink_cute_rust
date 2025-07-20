@@ -1,7 +1,8 @@
 [package]
 name = "pink_cute_rust"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+rust-version = "1.90"
 
 [lib]
 crate-type = ["cdylib"]
@@ -19,6 +20,9 @@ bs_cordl = { git = "https://github.com/QuestPackageManager/bs-cordl-rust.git", f
 "BeatmapDataItem",
 "IReadonlyBeatmapData"
 ]}
+
+[build-dependencies]
+cc = "1.0"
 
 [workspace]
 

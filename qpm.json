@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
   "version": "0.4.0",
   "sharedDir": "shared",
   "dependenciesDir": "extern",
@@ -9,13 +10,19 @@
     "url": null,
     "additionalData": {
       "overrideSoName": "libpink_cute_rust.so",
-      "cmake": false
+      "cmake": true
     }
   },
   "workspace": {
     "scripts": {
       "build": [
         "cargo ndk -t arm64-v8a -o ./build build --release"
+      ],
+      "copy": [
+        "pwsh ./scripts/copy.ps1"
+      ],
+      "cpp": [
+        "pwsh ./scripts/make_compile_db.ps1"
       ]
     },
     "qmodIncludeDirs": [
@@ -24,5 +31,14 @@
     "qmodIncludeFiles": [],
     "qmodOutput": "pink_cute_rust.qmod"
   },
-  "dependencies": []
+  "dependencies": [
+    {
+      "id": "bs-cordl",
+      "versionRange": "^4007.0.0",
+      "additionalData": {
+        "includeQmod": false,
+        "private": true
+      }
+    }
+  ]
 }
