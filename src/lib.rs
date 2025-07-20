@@ -9,8 +9,7 @@ use bs_cordl::UnityEngine::{self};
 use quest_hook::hook;
 use quest_hook::libil2cpp::{Gc, Il2CppString};
 
-extern "C" {
-    #[unsafe(no_mangle)]
+unsafe extern "C" {
     unsafe fn doSomething(ptr: Gc<TextMeshPro>);
 }
 
@@ -22,7 +21,7 @@ fn TextMeshPro_Awake(this: &mut TextMeshPro) {
     this.set_text(Il2CppString::new(text)).unwrap();
 
     unsafe {
-        doSomething(this.cast());
+        doSomething(this.into());
     }
 }
 #[hook("TMPro", "TextMeshPro", "set_text")]
@@ -39,7 +38,7 @@ pub struct ModInfo {
     version_long: u64,
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 extern "C" fn setup(modinfo: *mut ModInfo) {
     unsafe {
         *modinfo = ModInfo {
@@ -56,7 +55,7 @@ extern "C" fn setup(modinfo: *mut ModInfo) {
     quest_hook::setup("PinkCute");
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 extern "C" fn late_load() {
     TextMeshPro_Awake.install().unwrap();
     TextMeshPro_set_text.install().unwrap();
