@@ -5,9 +5,8 @@ env:
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -17,10 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Rust
-        uses: actions/setup-rust@v1
-        with:
-          rust-version: nightly
+      - name: Setup Rust Nightly
+        run: |
+          rustup default nightly
+          rustup target add aarch64-linux-android
+          cargo install --locked cargo-ndk
 
       - name: Cache cargo registry
         uses: actions/cache@v3
