@@ -8,3 +8,4 @@ codegen-rs
 .cache
 build_cmake
 extern/
+ndkpath.txt

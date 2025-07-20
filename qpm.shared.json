@@ -26,6 +26,7 @@
           "pwsh ./scripts/make_compile_db.ps1"
         ]
       },
+      "ndk": "^27.2.12479018",
       "qmodIncludeDirs": [
         "build/arm64-v8a"
       ],
