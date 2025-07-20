@@ -44,6 +44,14 @@ jobs:
           # Name of qmod in release asset. Assumes exists, same as prior
           qpm_qmod: ${{env.qmodName}}.qmod
 
+      - name: Cache cargo target directory
+        uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-target-
+
       - name: Build
         run: qpm s build
 
@@ -57,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.libname.outputs.NAME }}
-          path: build\arm64-v8a\libpink_cute_rust.so
+          path: build/arm64-v8a/libpink_cute_rust.so
           if-no-files-found: error
 
       - name: Upload qmod artifact
