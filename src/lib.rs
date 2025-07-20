@@ -9,6 +9,10 @@ use bs_cordl::UnityEngine::{self};
 use quest_hook::hook;
 use quest_hook::libil2cpp::{Gc, Il2CppString};
 
+use scotland2_rs::{ModInfoBuf, scotland2_raw::CModInfo};
+
+use std::sync::LazyLock;
+
 unsafe extern "C" {
     unsafe fn doSomething(ptr: Gc<TextMeshPro>);
 }
@@ -31,23 +35,17 @@ fn TextMeshPro_set_text(this: &mut TextMeshPro, mut text: Gc<Il2CppString>) {
     TextMeshPro_set_text.original(this, text);
 }
 
-#[repr(C)]
-pub struct ModInfo {
-    id: *const c_char,
-    version: *const c_char,
-    version_long: u64,
-}
+static MOD_INFO: LazyLock<ModInfoBuf> = LazyLock::new(|| ModInfoBuf {
+    id: "pink_cute".to_string(),
+    version: "0.1.0".to_string(),
+    version_long: 1,
+});
 
 #[unsafe(no_mangle)]
-extern "C" fn setup(modinfo: *mut ModInfo) {
-    unsafe {
-        *modinfo = ModInfo {
-            // we have to let the string leak, because the CString is dropped at the end of the function
-            id: CString::new("pink_cute").unwrap().into_raw(),
-            version: CString::new("1.0.0").unwrap().into_raw(),
-            version_long: 0,
-        }
-    }
+extern "C" fn setup(mod_info: &mut CModInfo) {
+    *mod_info = MOD_INFO.clone().into();
+
+    println!("Setup: {}", *mod_info);
 
     // setup quest-hook
     // which will setup tracing and panic logging
