@@ -1,0 +1,71 @@
+name: Rust Build
+
+env:
+  qmodName: pink_cute_rust
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+        with:
+          rust-version: nightly
+
+      - name: Cache cargo registry
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+              key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+              restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: QPM Rust Action
+        uses: Fernthedev/qpm-rust-action@v1
+        with:
+          #required
+          workflow_token: ${{secrets.GITHUB_TOKEN}}
+          resolve_ndk: true # Download NDK using qpm, satisfying the qpm.json NDK requirement
+          restore: true # will run restore on download
+          cache: true #will cache dependencies
+
+          # Name of qmod in release asset. Assumes exists, same as prior
+          qpm_qmod: ${{env.qmodName}}.qmod
+
+      - name: Build
+        run: qpm s build
+
+      - name: Build
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          qpm-rust s build
+          qpm-rust qmod zip
+
+      - name: Upload non-debug artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.libname.outputs.NAME }}
+          path: build\arm64-v8a\libpink_cute_rust.so
+          if-no-files-found: error
+
+      - name: Upload qmod artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.qmodName}}.qmod
+          path: ./${{ env.qmodName }}.qmod
+          if-no-files-found: error
+
+      # - name: Run tests
+      #   run: cargo test --verbose
