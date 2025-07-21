@@ -8,18 +8,24 @@ rust-version = "1.90"
 crate-type = ["cdylib"]
 
 [dependencies]
-quest_hook = { git = "https://github.com/Fernthedev/quest-hook-rs.git", features = ["il2cpp_v31"], branch = "cordl-fixes"}
+quest_hook = { git = "https://github.com/Fernthedev/quest-hook-rs.git", features = [
+    "il2cpp_v31",
+], branch = "cordl-fixes" }
 # quest_hook = { path = "../quest-hook-rs", features = ["il2cpp_v31"]}
 tracing = "*"
 # bs_cordl = { path = "./codegen-rs", features = [
 bs_cordl = { git = "https://github.com/QuestPackageManager/bs-cordl-rust.git", features = [
-"UnityEngine+GameObject",
-"UnityEngine+Color",
-"MainMenuViewController",
-"TMPro+TextMeshPro",
-"BeatmapDataItem",
-"IReadonlyBeatmapData"
-]}
+    "UnityEngine+GameObject",
+    "UnityEngine+Color",
+    "MainMenuViewController",
+    "TMPro+TextMeshPro",
+    "BeatmapDataItem",
+    "IReadonlyBeatmapData",
+] }
+
+# For SL2
+# https://github.com/sc2ad/scotland2/pull/19/files
+scotland2_rs = { git = "https://github.com/QuestPackageManager/scotland2_rs.git" }
 
 [build-dependencies]
 cc = "1.0"
