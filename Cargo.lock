@@ -46,7 +46,7 @@ checksum = "1b8e56985ec62d17e9c1001dc89c88ecd7dc08e47eba5ec7c29c7b5eeecde967"
 [[package]]
 name = "bs_cordl"
 version = "0.1.0"
-source = "git+https://github.com/QuestPackageManager/bs-cordl-rust.git#496b4e6df9e075fddc825a4482e0773baa358945"
+source = "git+https://github.com/QuestPackageManager/bs-cordl-rust.git#a61c4d7b0f1b3fb75a3f0004a42cd11b4a2d0689"
 dependencies = [
  "quest_hook",
 ]
