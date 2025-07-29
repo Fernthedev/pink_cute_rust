@@ -8,6 +8,7 @@ use bs_cordl::TMPro::TextMeshPro;
 use bs_cordl::UnityEngine::{self};
 use quest_hook::hook;
 use quest_hook::libil2cpp::{Gc, Il2CppString};
+use tracing::info;
 
 unsafe extern "C" {
     unsafe fn doSomething(ptr: Gc<TextMeshPro>);
@@ -75,13 +76,13 @@ extern "C" fn late_load() {
 
     let mut interface_beatmap: Gc<IReadonlyBeatmapData> = beatmap.cast();
 
-    println!(
+    info!(
         "Beatmap notes: {:?}",
         interface_beatmap
             .GetBeatmapDataItems::<Gc<NoteData>>(0)
             .unwrap()
     );
-    println!(
+    info!(
         "Beatmap notes count: {:?}",
         interface_beatmap.get_cuttableNotesCount()
     );
