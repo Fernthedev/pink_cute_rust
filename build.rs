@@ -70,7 +70,9 @@ Ok(())
 
 fn build_cpp(include_dir: PathBuf, lib_path: PathBuf) {
     // only compile in android linux AARCH64
-    let quest = cfg!(target_os = "android") && cfg!(target_arch = "aarch64");
+    let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
+    let target_arch = std::env::var("CARGO_CFG_TARGET_ARCH").unwrap_or_default();
+    let quest = target_os == "android" && target_arch == "aarch64";
     if !quest  {
         return;
     } 
